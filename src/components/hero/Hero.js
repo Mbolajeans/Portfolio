@@ -3,6 +3,8 @@ import './hero.scss'
 import Profil from '../../assets/profil.png'
 import {animate, mirror, motion} from "framer-motion"
 import scrolldown from '../../assets/scroll.gif'
+import cv from '../../assets/CV-MBOLA-JEAN-RANAIVOSON.pdf'
+import download from '../../assets/download.svg'
 
 export default function Hero() {
   return (
@@ -13,6 +15,7 @@ export default function Hero() {
                 <motion.h1 initial={{x:-500,opacity:0}} whileInView={{x:0,opacity:1}} transition={{delay:.5,stagger:.1}}>Développeur Web Front-End</motion.h1>
                 <motion.div className='buttons' initial={{x:-500,opacity:0}} whileInView={{x:0,opacity:1}} transition={{delay:.5,stagger:.1}}>
                     <a href='#Portfolio'>Voir les dernières projets</a>
+                    <a href={cv}>Curriculum vitae<img src={download}></img></a>
                     <a href='#Contact'>Contact</a>
                 </motion.div>
                 <img src={scrolldown} width='25' height='40'></img>

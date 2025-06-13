@@ -26,8 +26,8 @@ function App() {
       <ambientLight intensity={0.4} />
     </Canvas>
   </section>
-   <section><Services></Services></section>
-   <section><Services2></Services2></section>
+   <section className="mobile-section"><Services></Services></section>
+   <section className="mobile-section"><Services2></Services2></section>
    <section id='Portfolio'>
     <Canvas shadowMap camera={{ position: [0, 0, 5], fov: 70 }}>
         <Suspense fallback={null}>

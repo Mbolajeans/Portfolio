@@ -22,7 +22,7 @@ export default function Services2() {
                         <li>Optimisation du back-office WordPress pour qu’il soit clair, organisé et facilement utilisable par des administrateurs non techniciens</li>
                         <li>Configuration des rôles, des menus, des champs personnalisés (avec ACF par exemple) pour une gestion simple du contenu</li>
                     </ul>
-                    <button>Contact</button>
+                    <a href="#Contact">Contact</a>
                 </motion.div>
                 <motion.div className='box' initial={{background:"transparent",color:"#fff"}} whileHover={{background:"lightgray",color:"#000"}} transition={{duration: .5}}>
                     <h2>Intégration web pixel perfect</h2>
@@ -31,7 +31,7 @@ export default function Services2() {
                         <li>Responsive design avec Bootstrap, SASS, jQuery</li>
                         <li>Compatibilité multi-navigateurs et accessibilité</li>
                     </ul>
-                    <button>Contact</button>
+                    <a href="#Contact">Contact</a>
                 </motion.div>
                 <motion.div className='box' initial={{background:"transparent",color:"#fff"}} whileHover={{background:"lightgray",color:"#000"}} transition={{duration: .5}}>
                     <h2>Développement d’interfaces dynamiques avec React JS</h2>
@@ -40,7 +40,7 @@ export default function Services2() {
                         <li>Intégration d’animations</li>
                         <li>Connexion à des APIs pour créer des applications interactives</li>
                     </ul>
-                    <button>Contact</button>
+                    <a href="#Contact">Contact</a>
                 </motion.div>
             </motion.div>
         </div>

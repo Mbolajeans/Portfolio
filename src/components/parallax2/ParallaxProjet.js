@@ -1,4 +1,4 @@
-import React, { useMemo, Suspense } from 'react'
+import React, { useState, useEffect, useMemo, Suspense } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 
@@ -10,16 +10,29 @@ import { ThinFilmFresnelMap } from '../parallax/ThinFilmFresnelMap'
 import { mirrorsData as diamondsData } from '../parallax/data'
 import useLayers from '../parallax/use-layers'
 
+function useResponsiveFontSize(baseSize = 3.5, mobileBreakpoint = 768, mobileSize = 1.3) {
+  const [fontSize, setFontSize] = useState(baseSize)
 
+  useEffect(() => {
+    const updateFontSize = () => {
+      const isMobile = window.innerWidth <= mobileBreakpoint
+      setFontSize(isMobile ? mobileSize : baseSize)
+    }
 
-const TEXT_PROPS = {
-  fontSize:3.5,
-  font: 'https://fonts.gstatic.com/s/monoton/v10/5h1aiZUrOngCibe4TkHLRA.woff',
+    updateFontSize()
+    window.addEventListener('resize', updateFontSize)
+
+    return () => {
+      window.removeEventListener('resize', updateFontSize)
+    }
+  }, [baseSize, mobileBreakpoint, mobileSize])
+
+  return fontSize
 }
 
 function Title({ texture, map, layers, ...props }) {
   const textRef = useLayers(layers)
-
+const fontSize = useResponsiveFontSize(3.5, 768, 1.3) 
   return (
     <group {...props}>
       <Text
@@ -27,7 +40,8 @@ function Title({ texture, map, layers, ...props }) {
         name="text-olga"
         depthTest={false}
         position={[0, -1, 0]}
-        {...TEXT_PROPS}
+        fontSize={fontSize}
+        font="https://fonts.gstatic.com/s/monoton/v10/5h1aiZUrOngCibe4TkHLRA.woff"
       >
         PROJETS
         {/* <meshPhysicalMaterial

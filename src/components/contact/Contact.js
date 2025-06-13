@@ -42,7 +42,7 @@ export default function Contact() {
             </div>
             <div>
                 <h2>Adresse</h2>
-                <p>IVI 54 A Mandialaza Ambodivona<br/>Antananarivo 101, Madagascar</p>
+                <p>Antananarivo 101, Analamanga, Madagascar</p>
             </div>
             <div>
                 <h2>Téléphone</h2>

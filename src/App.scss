@@ -10,11 +10,17 @@
         @content;
     }
 }
-@mixin desktop{
+@mixin desktop2{
     @media (max-width: 1366px) {
         @content;
     }
 }
+@mixin desktop{
+    @media (max-width: 1440px) {
+        @content;
+    }
+}
+
 
 html{
     scroll-snap-type: y mandatory;
@@ -41,4 +47,11 @@ a{
 section{
     height: 100vh;
     scroll-snap-align: center;
+    overflow: hidden;
+}
+.mobile-section{
+    @include mobile{
+        height: auto;
+        min-height: 100vh;
+    }
 }
