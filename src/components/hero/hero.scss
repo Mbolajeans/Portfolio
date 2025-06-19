@@ -66,8 +66,11 @@
                     margin-bottom: 1rem;
                 }
             }
-            img{
+            svg{
                 margin-top: 2rem;
+                 #wheel {
+                    animation: scroll ease 2s infinite;
+                }
             }
             .buttons{
                 @include mobile{
@@ -121,4 +124,12 @@
             max-width: 1200px;
         }
     }
+}
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(60px);
+  }
 }
