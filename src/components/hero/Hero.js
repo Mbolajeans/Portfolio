@@ -1,74 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import './hero.scss';
 import Profil from '../../assets/profil.webp';
-import { motion } from "framer-motion";
 import cv from '../../assets/CV-MBOLA-JEAN-RANAIVOSON.pdf';
 import download from '../../assets/download.svg';
+import { motion } from 'framer-motion';
+const ScrollIndicator = React.lazy(() => import('./ScrollIndicator'));
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mediaQuery.matches);
+    const handleResize = () => setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleResize);
+    return () => mediaQuery.removeEventListener('change', handleResize);
   }, []);
 
   return (
     <div className='hero'>
       <div className='wrapper'>
         <div className='textContainer'>
-          <motion.h2
-            initial={{ x: -500, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            Mbola Jean Ranaivoson
-          </motion.h2>
-
-          <motion.h1
-            initial={{ x: -500, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            Développeur Web Front-End
-          </motion.h1>
-
-          <motion.div
-            className='buttons'
-            initial={{ x: -500, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <a href='#Portfolio'>Voir les dernières projets</a>
-            <a href={cv} download>
-              Curriculum vitae
-              <img src={download} alt="Télécharger" width="16" height="16" />
-            </a>
-            <a href='#Contact'>Contact</a>
-          </motion.div>
+          {isMobile ? (
+            <>
+              <h2>Mbola Jean Ranaivoson</h2>
+              <h1>Développeur Web Front-End</h1>
+              <div className='buttons'>
+                <a href='#Portfolio'>Voir les dernières projets</a>
+                <a href={cv} download>
+                  Curriculum vitae
+                  <img src={download} alt="Télécharger" width="16" height="16" />
+                </a>
+                <a href='#Contact'>Contact</a>
+              </div>
+            </>
+          ) : (
+            <>
+              <AnimatedText />
+              <AnimatedButtons cv={cv} download={download} />
+            </>
+          )}
 
           {!isMobile && (
-            <svg
-                width="25px"
-                viewBox="0 0 247 390"
-                style={{
-                    fillRule: "evenodd",
-                    clipRule: "evenodd",
-                    strokeLinecap: "round",
-                    strokeLinejoin: "round",
-                    strokeMiterlimit: 1.5
-                }}
-                >
-                <path
-                    id="wheel"
-                    d="M123.359,79.775l0,72.843"
-                    style={{ fill: "none", stroke: "#fff", strokeWidth: "20px" }}
-                />
-                <path
-                    id="mouse"
-                    d="M236.717,123.359c0,-62.565 -50.794,-113.359 -113.358,-113.359c-62.565,0 -113.359,50.794 -113.359,113.359l0,143.237c0,62.565 50.794,113.359 113.359,113.359c62.564,0 113.358,-50.794 113.358,-113.359l0,-143.237Z"
-                    style={{ fill: "none", stroke: "#fff", strokeWidth: "20px" }}
-                />
-            </svg>
+            <Suspense fallback={null}>
+              <ScrollIndicator />
+            </Suspense>
           )}
         </div>
 
@@ -99,5 +75,44 @@ export default function Hero() {
         </motion.div>
       )}
     </div>
+  );
+}
+
+function AnimatedText() {
+  return (
+    <>
+      <motion.h2
+        initial={{ x: -500, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.3 }}
+      >
+        Mbola Jean Ranaivoson
+      </motion.h2>
+      <motion.h1
+        initial={{ x: -500, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.4 }}
+      >
+        Développeur Web Front-End
+      </motion.h1>
+    </>
+  );
+}
+
+function AnimatedButtons({ cv, download }) {
+  return (
+    <motion.div
+      className='buttons'
+      initial={{ x: -500, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      transition={{ delay: 0.5 }}
+    >
+      <a href='#Portfolio'>Voir les dernières projets</a>
+      <a href={cv} download>
+        Curriculum vitae
+        <img src={download} alt="Télécharger" width="16" height="16" />
+      </a>
+      <a href='#Contact'>Contact</a>
+    </motion.div>
   );
 }
